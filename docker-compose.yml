@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    container_name: cms_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: college_db
+      MYSQL_USER: cmsuser
+      MYSQL_PASSWORD: cmspass
+    volumes:
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "3306:3306"
+
+  web:
+    build: ./backend
+    container_name: cms_web
+    environment:
+      DB_USER: cmsuser
+      DB_PASS: cmspass
+      DB_HOST: db
+      DB_NAME: college_db
+      FLASK_ENV: development
+      SECRET_KEY: supersecretkey
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "8080:80"
+    depends_on:
+      - db

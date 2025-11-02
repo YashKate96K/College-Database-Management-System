@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px;">
+    <div class="card-header bg-primary text-white text-center">
+      <h3 class="mb-0"><i class="bi bi-check2-square"></i> Mark Attendance</h3>
+    </div>
+
+    <div class="card-body p-4">
+      <form method="POST">
+
+        <!-- Date Field -->
+        <div class="mb-4">
+          <label class="form-label fw-semibold">Date <span class="text-danger">*</span></label>
+          <input type="date" name="date" class="form-control shadow-sm" required>
+        </div>
+
+        <!-- Attendance Table -->
+        <div class="table-responsive">
+          <table class="table table-hover align-middle text-center">
+            <thead class="table-primary">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Present</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for s in students %}
+              <tr>
+                <td>{{ loop.index }}</td>
+                <td class="fw-semibold">{{ s.name }}</td>
+                <td>
+                  <div class="form-check d-flex justify-content-center">
+                    <input class="form-check-input" type="checkbox" name="present_{{ s.student_id }}" id="chk{{ s.student_id }}">
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-grid mt-4">
+          <button class="btn btn-primary btn-lg shadow-sm">
+            <i class="bi bi-save"></i> Save Attendance
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Optional hover & transition effects -->
+<style>
+.table-hover tbody tr:hover {
+  background-color: #f0f7ff;
+  transition: 0.2s ease-in-out;
+}
+.form-check-input {
+  transform: scale(1.3);
+  cursor: pointer;
+}
+</style>
+
+{% endblock %}
+

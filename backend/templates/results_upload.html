@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px;">
+    <div class="card-header bg-primary text-white text-center">
+      <h3 class="mb-0"><i class="bi bi-upload"></i> Upload Results</h3>
+    </div>
+
+    <div class="card-body p-4">
+      <form method="POST">
+
+        <!-- Course Info (Optional Header) -->
+        {% if course %}
+        <div class="alert alert-info text-center fw-semibold mb-4">
+          Uploading results for: <span class="text-primary">{{ course.course_name }}</span>
+        </div>
+        {% endif %}
+
+        <!-- Results Table -->
+        <div class="table-responsive">
+          <table class="table table-hover align-middle text-center">
+            <thead class="table-primary">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Marks</th>
+                <th scope="col">Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for s in students %}
+              <tr>
+                <td>{{ loop.index }}</td>
+                <td class="fw-semibold text-secondary">{{ s.name }}</td>
+                <td style="width: 20%;">
+                  <input type="number" name="marks_{{ s.student_id }}" class="form-control text-center shadow-sm" min="0" max="100" required>
+                </td>
+                <td style="width: 20%;">
+                  <input type="text" name="grade_{{ s.student_id }}" class="form-control text-center shadow-sm" maxlength="2" placeholder="A+" required>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-grid mt-4">
+          <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+            <i class="bi bi-cloud-arrow-up"></i> Upload Results
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="card-footer text-center text-muted py-2">
+      <small>© 2025 College Management System | Faculty Panel</small>
+    </div>
+  </div>
+</div>
+
+<!-- Optional CSS for hover and smooth transitions -->
+<style>
+.table-hover tbody tr:hover {
+  background-color: #f0f7ff;
+  transition: all 0.2s ease-in-out;
+}
+.form-control {
+  border-radius: 10px;
+}
+input[type="number"]::-webkit-inner-spin-button {
+  opacity: 0.5;
+}
+</style>
+
+{% endblock %}

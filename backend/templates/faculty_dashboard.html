@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 mx-auto" style="max-width: 900px;">
+    <div class="card-header bg-primary text-white text-center">
+      <h3 class="mb-0"><i class="bi bi-person-badge-fill"></i> Faculty Dashboard</h3>
+    </div>
+
+    <div class="card-body p-4">
+      <h5 class="fw-semibold mb-4 text-secondary">
+        <i class="bi bi-journal-bookmark-fill"></i> Your Courses
+      </h5>
+
+      {% if courses %}
+      <div class="list-group shadow-sm">
+        {% for c in courses %}
+        <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center flex-wrap">
+          <div>
+            <h6 class="fw-bold mb-1 text-primary">{{ c.course_name }}</h6>
+            <small class="text-muted">Course ID: {{ c.course_id }}</small>
+          </div>
+          <div class="mt-2 mt-md-0">
+            <a href="{{ url_for('mark_attendance', course_id=c.course_id) }}" class="btn btn-outline-success btn-sm me-2">
+              <i class="bi bi-check2-square"></i> Mark Attendance
+            </a>
+            <a href="{{ url_for('upload_results', course_id=c.course_id) }}" class="btn btn-outline-primary btn-sm">
+              <i class="bi bi-upload"></i> Upload Results
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="alert alert-info text-center mt-3">
+        <i class="bi bi-info-circle"></i> You are not assigned to any courses yet.
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="card-footer text-center text-muted py-2">
+      <small>© 2025 College Management System | Faculty Panel</small>
+    </div>
+  </div>
+</div>
+
+<!-- Optional styling for hover and transitions -->
+<style>
+.list-group-item:hover {
+  background-color: #f8faff;
+  transform: translateY(-2px);
+  transition: all 0.2s ease-in-out;
+}
+.btn-sm i {
+  margin-right: 3px;
+}
+</style>
+
+{% endblock %}

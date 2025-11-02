@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 mx-auto" style="max-width: 1000px;">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h3 class="mb-0"><i class="bi bi-journal-bookmark-fill"></i> Courses</h3>
+      <a class="btn btn-success btn-sm" href="{{ url_for('add_course') }}">
+        <i class="bi bi-plus-circle"></i> Add Course
+      </a>
+    </div>
+
+    <div class="card-body p-4">
+      {% if courses %}
+      <div class="table-responsive">
+        <table class="table table-hover align-middle text-center">
+          <thead class="table-primary">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Course ID</th>
+              <th scope="col">Course Name</th>
+              <th scope="col">Department</th>
+              <th scope="col">Credits</th>
+              <th scope="col">Faculty</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in courses %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td class="fw-semibold text-secondary">{{ c.course_id }}</td>
+              <td class="fw-semibold text-primary">{{ c.course_name }}</td>
+              <td>{{ c.dept }}</td>
+              <td>{{ c.credits }}</td>
+              <td>
+                {% if c.faculty_name %}
+                  <span class="badge bg-success">{{ c.faculty_name }}</span>
+                {% else %}
+                  <span class="badge bg-secondary">Unassigned</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="alert alert-info text-center mt-3">
+        <i class="bi bi-info-circle"></i> No courses available. Add new courses to get started.
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="card-footer text-center text-muted py-2">
+      <small>© 2025 College Management System | Admin Panel</small>
+    </div>
+  </div>
+</div>
+
+<!-- Optional hover & transition effects -->
+<style>
+.table-hover tbody tr:hover {
+  background-color: #f0f7ff;
+  transition: 0.2s ease-in-out;
+}
+.table th {
+  font-weight: 600;
+}
+.badge {
+  font-size: 0.9rem;
+  padding: 0.45em 0.6em;
+}
+</style>
+
+{% endblock %}
+

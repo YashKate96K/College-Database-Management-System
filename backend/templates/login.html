@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  body {
+    background-image: url("{{ url_for('static', filename='css/images/bg-login.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+  } 
+  
+
+  /* Logo styling */
+  .top-left-logo {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    width: 120px; /* adjust size as needed */
+    height: auto;
+  }
+
+  .login-container {
+    margin-top: 100px; /* move login box lower */
+  }
+
+  .card {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 15px;
+  }
+</style>
+
+<!-- 🔹 Add your top-left logo -->
+<img src="{{ url_for('static', filename='css/images/logo.png') }}" alt="Logo" class="top-left-logo">
+<img src="{{ url_for('static', filename='css/images/logo.png') }}" alt="Logo" class="top-left-logo">
+
+<style>
+  .top-left-logo {
+    position: absolute;
+    top: 12px;      /* slightly higher (was 20px) */
+    left: 1px;     /* moved a little more to the left (was 30px) */
+    width: 120px;
+    height: auto;
+    z-index: 10;
+  }
+</style>
+
+
+<div class="row justify-content-center login-container">
+  <div class="col-md-5">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h3 class="card-title mb-3 text-center">Login</h3>
+        <form method="POST" action="{{ url_for('login') }}">
+          <div class="mb-3">
+            <input name="username" class="form-control" placeholder="Email / Username" required>
+          </div>
+          <div class="mb-3">
+            <input name="password" type="password" class="form-control" placeholder="Password" required>
+          </div>
+          <div class="mb-3">
+            <select name="role" class="form-select">
+              <option value="admin">Admin</option>
+              <option value="faculty">Faculty</option>
+              <option value="student">Student</option>
+            </select>
+          </div>
+          <button class="btn btn-primary w-100">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+

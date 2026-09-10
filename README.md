@@ -1,5 +1,5 @@
 # College Management System (Flask + MySQL)
-
+Demo Video Link : https://drive.google.com/file/d/1RKBKjnR-CMl7hloTQG_rAvUYI90YyZTe/view?usp=sharing
 ## Option A — Run with Docker (recommended)
 1. Install Docker & Docker Compose
 2. From project root:
